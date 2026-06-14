@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#071A0E">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Bora Brasil!">
+<title>Bora Brasil! — Copa &amp; Surf 2026</title>
+<meta name="description" content="Hub esportivo brasileiro: Copa do Mundo 2026 + WSL Surf em Saquarema. Tabela completa, calendário do surf, alertas e transmissões gratuitas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================================================================
+   TOKENS
+   ================================================================ */
+:root {
+  --g950: #040F07;
+  --g900: #071A0E;
+  --g800: #0D2716;
+  --g700: #163420;
+  --g600: #1E442B;
+  --g500: #2A5C3A;
+  --gold: #F0C040;
+  --gold-dim: #C49A20;
+  --gold-pale: #FBF0C0;
+  --neon: #00E676;
+  --ocean: #0077B6;
+  --ocean-light: #90E0EF;
+  --ocean-dim: #005F8A;
+  --ocean-bg: rgba(0,119,182,.12);
+  --ocean-border: rgba(0,119,182,.35);
+  --text: #F0EDE6;
+  --text-dim: #8BA898;
+  --text-muted: #4E7060;
+  --white: #FFFFFF;
+  --caze: #FF6B1A;
+  --r: 12px;
+  --r-lg: 20px;
+  --bebas: 'Bebas Neue', 'Arial Black', sans-serif;
+  --inter: 'Inter', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  background: var(--g950);
+  color: var(--text);
+  font-family: var(--inter);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent, transparent 60px,
+    rgba(0,230,118,.018) 60px, rgba(0,230,118,.018) 61px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 16px 120px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================================
+   HEADER
+   ================================================================ */
+.campo-header {
+  position: relative;
+  margin: 0 -16px;
+  padding: 40px 24px 32px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,230,118,.12) 0%, transparent 70%),
+    linear-gradient(180deg, var(--g800) 0%, var(--g950) 100%);
+  border-bottom: 1px solid var(--g700);
+  overflow: hidden;
+}
+.campo-header::before {
+  content: '';
+  position: absolute; left: 50%; top: -80px;
+  transform: translateX(-50%);
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,230,118,.08);
+  pointer-events: none;
+}
+.campo-header::after {
+  content: '';
+  position: absolute; left: 50%; top: -120px;
+  transform: translateX(-50%);
+  width: 440px; height: 440px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,230,118,.04);
+  pointer-events: none;
+}
+
+.patrocinio {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; margin-bottom: 20px; opacity: .72; transition: opacity .2s;
+}
+.patrocinio:hover { opacity: 1; }
+.patrocinio img { width: 22px; height: 22px; border-radius: 50%; filter: brightness(.85) saturate(.6); }
+.patrocinio span { font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; }
+
+.titulo-app { text-align: center; position: relative; }
+.titulo-app h1 {
+  font-family: var(--bebas);
+  font-size: clamp(3.8rem, 14vw, 6.4rem);
+  letter-spacing: .03em; line-height: .95;
+  color: var(--text); text-transform: uppercase;
+}
+.titulo-app h1 .destaque { color: var(--gold); text-shadow: 0 0 40px rgba(240,192,64,.35); }
+.titulo-app .hub-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 10px;
+  background: var(--g700);
+  border: 1px solid var(--g500);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-dim); font-weight: 600;
+}
+.hub-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 8px var(--neon);
+  animation: pulso 2s ease-in-out infinite;
+}
+.hub-badge .dot-ocean {
+  background: var(--ocean-light);
+  box-shadow: 0 0 8px var(--ocean-light);
+  animation-delay: 1s;
+}
+@keyframes pulso {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.7); }
+}
+
+/* ================================================================
+   SPORT TABS
+   ================================================================ */
+.sport-tabs {
+  display: flex;
+  margin: 0 -16px;
+  background: var(--g900);
+  border-bottom: 1px solid var(--g700);
+}
+.sport-tab {
+  flex: 1; padding: 12px 8px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  cursor: pointer; border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: all .2s; font-family: var(--inter);
+}
+.sport-tab .tab-icon { font-size: 1.3rem; }
+.sport-tab .tab-label {
+  font-size: .62rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sport-tab[data-esporte="copa"].ativo { border-bottom-color: var(--gold); }
+.sport-tab[data-esporte="copa"].ativo .tab-label { color: var(--gold); }
+.sport-tab[data-esporte="surf"].ativo { border-bottom-color: var(--ocean-light); }
+.sport-tab[data-esporte="surf"].ativo .tab-label { color: var(--ocean-light); }
+.sport-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ================================================================
+   BANNER ROTATIVO
+   ================================================================ */
+.banner-wrap {
+  margin: 0 -16px;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, #0A0A0A 0%, #18180A 50%, #0A1A0A 100%);
+  border-top: 2px solid var(--gold-dim);
+  border-bottom: 1px solid rgba(240,192,64,.2);
+}
+.banner-wrap.surf-mode {
+  background: linear-gradient(135deg, #020C14 0%, #041828 50%, #020C14 100%);
+  border-top-color: var(--ocean-dim);
+  border-bottom-color: var(--ocean-border);
+}
+.banner-wrap::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; width: 50%; left: -60%;
+  background: linear-gradient(100deg, transparent, rgba(240,192,64,.06), transparent);
+  animation: led-scan 6s linear infinite;
+  pointer-events: none;
+}
+.banner-wrap.surf-mode::after {
+  background: linear-gradient(100deg, transparent, rgba(0,119,182,.08), transparent);
+}
+@keyframes led-scan { to { left: 120%; } }
+
+.slide {
+  display: none; align-items: center; gap: 16px;
+  padding: 14px 20px; min-height: 72px;
+}
+.slide.ativo { display: flex; animation: slide-in .4s ease; }
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.slide img { width: 40px; height: 40px; border-radius: 50%; flex: none; border: 1.5px solid rgba(240,192,64,.4); filter: saturate(.7) brightness(.9); }
+.slide .emoji-anuncio { font-size: 1.6rem; flex: none; width: 40px; text-align: center; }
+.slide .texto { flex: 1; min-width: 0; }
+.slide .titulo-slide { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); margin-bottom: 2px; }
+.surf-mode .slide .titulo-slide { color: var(--ocean-light); }
+.slide .frase-slide { font-size: .75rem; color: #A8A090; line-height: 1.4; }
+.slide .cta-slide {
+  flex: none; appearance: none;
+  border: 1px solid rgba(240,192,64,.5);
+  background: transparent; color: var(--gold);
+  font-family: var(--inter); font-size: .7rem; font-weight: 700;
+  padding: 6px 12px; border-radius: 6px;
+  text-decoration: none; letter-spacing: .05em; text-transform: uppercase;
+  transition: background .15s, color .15s; white-space: nowrap; cursor: pointer;
+}
+.surf-mode .slide .cta-slide { border-color: var(--ocean-border); color: var(--ocean-light); }
+.slide .cta-slide:hover { background: var(--gold); color: #0A0800; }
+.surf-mode .slide .cta-slide:hover { background: var(--ocean); color: #fff; }
+
+.banner-dots { display: flex; gap: 5px; justify-content: center; padding: 6px 0; background: rgba(0,0,0,.3); }
+.banner-dots i { width: 18px; height: 3px; border-radius: 2px; background: rgba(240,192,64,.25); transition: background .25s, width .25s; }
+.banner-dots i.ativo { background: var(--gold); width: 28px; }
+.surf-mode .banner-dots i { background: rgba(0,119,182,.25); }
+.surf-mode .banner-dots i.ativo { background: var(--ocean-light); }
+
+/* ================================================================
+   AÇÕES GLOBAIS + FILTROS
+   ================================================================ */
+.acoes-globais {
+  display: flex; gap: 8px; justify-content: center;
+  flex-wrap: wrap; margin: 20px 0 0;
+}
+
+.filtros-nav {
+  display: flex; gap: 0; margin: 20px 0 0;
+  background: var(--g800);
+  border: 1px solid var(--g700);
+  border-radius: var(--r); padding: 4px;
+}
+.chip {
+  appearance: none; cursor: pointer; flex: 1;
+  border-radius: 9px; padding: 9px 8px;
+  font-weight: 600; font-size: .78rem;
+  background: transparent; color: var(--text-dim); border: none;
+  transition: all .18s ease; font-family: var(--inter);
+  letter-spacing: .01em; text-align: center;
+}
+.chip:hover { color: var(--text); }
+.chip.ativo { background: var(--gold); color: #0A0800; font-weight: 700; box-shadow: 0 2px 12px rgba(240,192,64,.3); }
+.chip:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.filtros-surf {
+  display: flex; gap: 0; margin: 20px 0 0;
+  background: var(--g800);
+  border: 1px solid var(--ocean-border);
+  border-radius: var(--r); padding: 4px;
+}
+.chip-surf.ativo { background: var(--ocean); color: #fff; box-shadow: 0 2px 12px rgba(0,119,182,.3); }
+.chip-surf:hover { color: var(--ocean-light); }
+
+/* ================================================================
+   BOTÕES
+   ================================================================ */
+.btn {
+  appearance: none; border: 0; cursor: pointer;
+  border-radius: 9px; font-weight: 600; font-size: .8rem;
+  padding: 9px 16px; display: inline-flex; align-items: center;
+  gap: 7px; text-decoration: none;
+  transition: transform .1s ease, filter .1s ease, box-shadow .1s ease;
+  font-family: var(--inter); letter-spacing: .01em; white-space: nowrap;
+}
+.btn:active { transform: scale(.96); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.btn-assistir { background: var(--gold); color: #0A0800; font-weight: 700; }
+.btn-assistir:hover { filter: brightness(1.1); box-shadow: 0 4px 16px rgba(240,192,64,.35); }
+
+.btn-surf { background: var(--ocean); color: #fff; font-weight: 700; }
+.btn-surf:hover { filter: brightness(1.1); box-shadow: 0 4px 16px rgba(0,119,182,.35); }
+
+.btn-link { background: transparent; color: var(--text-dim); border: 1px solid var(--g600); }
+.btn-link:hover { color: var(--text); border-color: var(--g500); background: var(--g800); }
+
+.btn-cal { background: var(--g800); color: var(--gold); border: 1px solid rgba(240,192,64,.3); }
+.btn-cal:hover { background: var(--g700); border-color: rgba(240,192,64,.55); }
+
+.btn-zap { background: #1DB954; color: #fff; font-weight: 700; }
+.btn-zap:hover { filter: brightness(1.08); }
+
+.btn-mini { padding: 7px 12px; font-size: .74rem; }
+
+.zap-flutuante {
+  position: fixed; right: 16px; bottom: 20px; z-index: 60;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 0 0 rgba(37,211,102,.4);
+  text-decoration: none; font-size: 1.5rem;
+  animation: zap-ring 3s ease-in-out infinite;
+}
+@keyframes zap-ring {
+  0%, 80%, 100% { box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 0 0 rgba(37,211,102,.4); }
+  40%  { box-shadow: 0 6px 24px rgba(0,0,0,.5), 0 0 0 12px rgba(37,211,102,0); }
+}
+.zap-flutuante:hover { transform: scale(1.08); }
+
+/* ================================================================
+   SEÇÕES DE CONTEÚDO
+   ================================================================ */
+.secao-copa { display: none; }
+.secao-surf { display: none; }
+.secao-copa.ativo { display: block; margin-top: 20px; }
+.secao-surf.ativo { display: block; margin-top: 20px; }
+
+/* ================================================================
+   BLOCO COPA — identidade verde/ouro
+   ================================================================ */
+.bloco-copa {
+  border: 2px solid rgba(240,192,64,.25);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, #0D1E10 0%, var(--g950) 100%);
+  margin: 0 -4px;
+  overflow: hidden;
+}
+.bloco-copa-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px 12px;
+  background: linear-gradient(90deg, rgba(240,192,64,.08) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(240,192,64,.18);
+}
+.bloco-copa-header .bloco-icone { font-size: 1.3rem; }
+.bloco-copa-header .bloco-titulo {
+  font-family: var(--bebas); font-size: 1.05rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold);
+}
+.bloco-copa-header .bloco-badge {
+  margin-left: auto; font-size: .6rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px;
+  background: rgba(240,192,64,.1); color: var(--gold-dim);
+  border: 1px solid rgba(240,192,64,.25);
+}
+.bloco-copa-body { padding: 0 10px 14px; }
+
+/* ================================================================
+   BLOCO SURF — identidade azul/oceano
+   ================================================================ */
+.bloco-surf {
+  border: 2px solid var(--ocean-border);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, #041828 0%, var(--g950) 100%);
+  margin: 0 -4px;
+  overflow: hidden;
+}
+.bloco-surf-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px 12px;
+  background: linear-gradient(90deg, rgba(0,119,182,.12) 0%, transparent 100%);
+  border-bottom: 1px solid var(--ocean-border);
+}
+.bloco-surf-header .bloco-icone { font-size: 1.3rem; }
+.bloco-surf-header .bloco-titulo {
+  font-family: var(--bebas); font-size: 1.05rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ocean-light);
+}
+.bloco-surf-header .bloco-badge {
+  margin-left: auto; font-size: .6rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--ocean-bg); color: var(--ocean-light);
+  border: 1px solid var(--ocean-border);
+}
+.bloco-surf-body { padding: 0 10px 14px; }
+
+/* ================================================================
+   CABEÇALHO DE DIA (Copa)
+   ================================================================ */
+.lista { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+
+.cabecalho-dia {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0 4px; font-size: .68rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--text-muted);
+}
+.cabecalho-dia::before, .cabecalho-dia::after { content: ''; height: 1px; flex: 1; background: var(--g700); }
+.cabecalho-dia.hoje { color: var(--gold-dim); }
+.cabecalho-dia.hoje::before, .cabecalho-dia.hoje::after {
+  background: linear-gradient(90deg, transparent, rgba(240,192,64,.3), transparent);
+}
+
+/* ================================================================
+   CARTÃO DE JOGO (Copa)
+   ================================================================ */
+.jogo {
+  background: var(--g800); border: 1px solid var(--g700);
+  border-radius: var(--r-lg); overflow: hidden; position: relative;
+  transition: border-color .2s, transform .15s;
+}
+.jogo:hover { border-color: var(--g600); transform: translateY(-1px); }
+.jogo.destaque-br {
+  border-color: rgba(240,192,64,.25);
+  background: linear-gradient(135deg, var(--g800) 0%, #0D1E10 100%);
+}
+.jogo.destaque-br::before {
+  content: '🇧🇷'; position: absolute; top: 12px; right: 14px;
+  font-size: .9rem; opacity: .5;
+}
+
+.placar {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 0; padding: 20px 20px 16px;
+}
+.time { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+.time:first-child { align-items: flex-start; }
+.time:last-child  { align-items: flex-end; }
+.bandeira { font-size: 2rem; line-height: 1; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+.time .nome { font-family: var(--bebas); font-size: clamp(.9rem, 3.5vw, 1.2rem); letter-spacing: .05em; text-transform: uppercase; color: var(--text); line-height: 1; }
+.centro { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 0 16px; }
+.vs-sep { font-family: var(--bebas); font-size: 2.6rem; color: var(--gold); letter-spacing: .05em; line-height: 1; text-shadow: 0 0 24px rgba(240,192,64,.4); }
+.hora-jogo { font-family: var(--bebas); font-size: .9rem; color: var(--text-dim); letter-spacing: .1em; }
+.cidade-jogo { font-size: .6rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); text-align: center; max-width: 110px; }
+
+.rodape-jogo {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 10px 16px 14px;
+  border-top: 1px solid var(--g700); flex-wrap: wrap;
+}
+.canal-info { display: flex; align-items: center; gap: 7px; font-size: .71rem; color: var(--text-muted); font-weight: 500; }
+.canal-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--caze); box-shadow: 0 0 6px var(--caze); flex: none; }
+.canal-dot.ocean { background: var(--ocean); box-shadow: 0 0 6px var(--ocean); }
+.canal-info b { color: var(--text-dim); font-weight: 600; }
+.grupo-botoes { display: flex; gap: 7px; flex-wrap: wrap; }
+
+/* Player */
+.area-player { display: none; border-top: 1px solid var(--g700); background: #000; }
+.jogo.aberto .area-player { display: block; }
+.moldura { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
+.moldura iframe, .moldura .yt-alvo { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.fallback { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; padding: 24px; background: linear-gradient(180deg, var(--g800), var(--g950)); }
+.fallback.visivel { display: flex; }
+.fallback h3 { font-family: var(--bebas); font-size: 1rem; letter-spacing: .05em; text-transform: uppercase; }
+.fallback p { color: var(--text-dim); font-size: .82rem; max-width: 440px; }
+.barra-player { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; background: var(--g800); border-bottom: 1px solid var(--g700); }
+.barra-player span { font-size: .7rem; color: var(--text-muted); }
+.btn-fechar { background: none; border: 0; color: var(--text-dim); cursor: pointer; font-size: .75rem; padding: 6px; font-family: var(--inter); transition: color .15s; }
+.btn-fechar:hover { color: var(--text); }
+
+/* ================================================================
+   SEÇÃO SURF — WSL
+   ================================================================ */
+.surf-hero {
+  margin: 20px 0 0;
+  background: linear-gradient(135deg, #020C14 0%, #041828 80%, #020C14 100%);
+  border: 1px solid var(--ocean-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  position: relative;
+}
+.surf-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 20px,
+    rgba(0,119,182,.03) 20px, rgba(0,119,182,.03) 21px
+  );
+  pointer-events: none;
+}
+
+.surf-hero-inner { padding: 20px; position: relative; z-index: 1; }
+
+.surf-event-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--ocean-bg); color: var(--ocean-light);
+  border: 1px solid var(--ocean-border); margin-bottom: 10px;
+}
+.surf-event-tag .live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ocean-light);
+  animation: pulso 1.5s ease-in-out infinite;
+}
+
+.surf-event-name {
+  font-family: var(--bebas);
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--text); line-height: 1.05; margin-bottom: 4px;
+}
+.surf-event-sub {
+  font-size: .72rem; color: var(--text-muted); font-weight: 500;
+  letter-spacing: .06em; margin-bottom: 16px;
+}
+
+.surf-datas {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.data-badge {
+  background: var(--g800); border: 1px solid var(--g600);
+  border-radius: 8px; padding: 6px 12px;
+  font-size: .72rem; color: var(--text-dim); font-weight: 600;
+}
+.data-badge .data-label { font-size: .58rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; display: block; margin-bottom: 1px; }
+
+.surf-countdown {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.count-item {
+  background: rgba(0,119,182,.1); border: 1px solid var(--ocean-border);
+  border-radius: 8px; padding: 8px 12px; text-align: center; min-width: 52px;
+}
+.count-num { font-family: var(--bebas); font-size: 1.5rem; color: var(--ocean-light); line-height: 1; display: block; }
+.count-label { font-size: .58rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; }
+
+.surf-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Onde assistir */
+.onde-assistir {
+  margin-top: 12px;
+  background: var(--g800); border: 1px solid var(--g700);
+  border-radius: var(--r); padding: 12px 16px;
+}
+.onde-titulo { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.canal-surf {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0; border-bottom: 1px solid var(--g700);
+}
+.canal-surf:last-child { border-bottom: none; padding-bottom: 0; }
+.canal-surf .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.canal-surf .canal-nome { flex: 1; font-size: .8rem; font-weight: 600; color: var(--text-dim); }
+.canal-surf .canal-obs { font-size: .68rem; color: var(--text-muted); }
+.canal-surf a { font-size: .72rem; color: var(--ocean-light); text-decoration: none; font-weight: 600; }
+.canal-surf a:hover { text-decoration: underline; }
+
+/* Calendário WSL completo */
+.wsl-grid {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-top: 20px;
+}
+.wsl-stop {
+  background: var(--g800); border: 1px solid var(--g700);
+  border-radius: var(--r); overflow: hidden;
+  transition: border-color .2s, transform .15s;
+}
+.wsl-stop:hover { border-color: var(--g600); transform: translateY(-1px); }
+.wsl-stop.brasil {
+  border-color: var(--ocean-border);
+  background: linear-gradient(135deg, var(--g800) 0%, #041828 100%);
+}
+.wsl-stop.passou { opacity: .6; }
+
+.wsl-stop-inner {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+}
+.stop-num {
+  font-family: var(--bebas); font-size: 1rem;
+  color: var(--text-muted); min-width: 26px; text-align: center;
+}
+.wsl-stop.brasil .stop-num { color: var(--ocean-light); }
+.stop-info { flex: 1; min-width: 0; }
+.stop-nome { font-size: .84rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stop-local { font-size: .7rem; color: var(--text-muted); margin-top: 2px; }
+.stop-datas { font-size: .68rem; color: var(--text-dim); font-weight: 500; min-width: 90px; text-align: right; }
+.stop-status {
+  font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 99px;
+}
+.status-passou { background: rgba(78,112,96,.2); color: var(--text-muted); }
+.status-breve {
+  background: var(--ocean-bg); color: var(--ocean-light);
+  border: 1px solid var(--ocean-border);
+  animation: pulso 2s ease-in-out infinite;
+}
+.status-futuro { background: rgba(240,192,64,.1); color: var(--gold-dim); }
+
+/* ================================================================
+   MISC
+   ================================================================ */
+.aviso {
+  font-size: .73rem; color: var(--text-muted);
+  text-align: center; margin-top: 12px;
+  border: 1px dashed var(--g700);
+  border-radius: var(--r); padding: 12px 16px;
+}
+.aviso b { color: var(--gold-dim); }
+
+.aviso-surf { border-color: var(--ocean-border); }
+.aviso-surf b { color: var(--ocean-light); }
+
+.vazio {
+  text-align: center; padding: 56px 20px; color: var(--text-dim);
+  border: 1px dashed var(--g700); border-radius: var(--r-lg); margin-top: 20px;
+  font-size: .9rem; line-height: 1.7;
+}
+
+.toast {
+  position: fixed; left: 50%; bottom: 88px;
+  transform: translateX(-50%);
+  background: var(--g700); border: 1px solid var(--gold-dim);
+  color: var(--text); padding: 11px 20px;
+  border-radius: 999px; font-size: .8rem;
+  z-index: 99; opacity: 0; pointer-events: none;
+  transition: opacity .25s ease; max-width: 88vw; text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.toast.visivel { opacity: 1; }
+
+/* Guia instalação */
+.guia-instalar {
+  position: fixed; left: 12px; right: 12px; bottom: 88px; z-index: 70;
+  display: none; gap: 12px; align-items: flex-start;
+  background: var(--g800); border: 1px solid rgba(240,192,64,.4);
+  border-radius: var(--r-lg); padding: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.6);
+}
+.guia-instalar.visivel { display: flex; animation: slide-up .4s ease; }
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.guia-instalar .icone { font-size: 1.5rem; flex: none; line-height: 1.2; }
+.guia-instalar .conteudo { flex: 1; min-width: 0; }
+.guia-instalar b { display: block; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--gold); margin-bottom: 4px; }
+.guia-instalar p { font-size: .77rem; color: var(--text-dim); line-height: 1.5; }
+.guia-instalar .acoes-guia { margin-top: 10px; }
+.fechar-guia { background: none; border: 0; color: var(--text-muted); cursor: pointer; font-size: .9rem; padding: 2px 4px; flex: none; }
+.fechar-guia:hover { color: var(--text); }
+@media (min-width: 640px) { .guia-instalar { left: auto; max-width: 400px; right: 20px; } }
+
+.lista-passos { list-style: none; display: flex; flex-direction: column; gap: 14px; margin: 16px 0; }
+.lista-passos li { display: flex; gap: 12px; align-items: flex-start; }
+.num-passo { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); color: #0A0800; font-family: var(--bebas); font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+.lista-passos .txt { font-size: .88rem; color: var(--text); line-height: 1.6; padding-top: 2px; }
+.lista-passos .txt .passo { color: var(--gold); font-weight: 700; }
+.nota-passos { font-size: .76rem; color: var(--text-dim); background: rgba(240,192,64,.06); border: 1px dashed rgba(240,192,64,.3); border-radius: 10px; padding: 10px 12px; line-height: 1.6; }
+.nota-passos b { color: var(--gold); }
+
+/* Modal */
+.modal-fundo { position: fixed; inset: 0; background: rgba(2,8,4,.85); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 80; padding: 18px; }
+.modal-fundo.aberto { display: flex; }
+.modal { background: var(--g800); border: 1px solid var(--g600); border-radius: var(--r-lg); max-width: 500px; width: 100%; max-height: 88vh; overflow: auto; padding: 28px 24px; position: relative; animation: modal-in .25s ease; box-shadow: 0 24px 60px rgba(0,0,0,.7); }
+@keyframes modal-in { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: none; } }
+.modal .fechar-x { position: absolute; top: 14px; right: 16px; background: var(--g700); border: none; color: var(--text-dim); font-size: .9rem; cursor: pointer; padding: 6px 9px; border-radius: 7px; font-family: var(--inter); transition: background .15s, color .15s; }
+.modal .fechar-x:hover { background: var(--g600); color: var(--text); }
+.modal h2 { font-family: var(--bebas); font-size: 1.3rem; text-transform: uppercase; letter-spacing: .06em; color: var(--gold); margin-bottom: 12px; }
+.modal p { font-size: .85rem; color: var(--text-dim); line-height: 1.65; margin-bottom: 14px; }
+.modal p b { color: var(--text); }
+.dev-card { display: flex; gap: 14px; align-items: center; border: 1px solid rgba(240,192,64,.2); border-radius: 14px; padding: 16px; margin: 14px 0; background: linear-gradient(135deg, rgba(240,192,64,.05) 0%, transparent 100%); }
+.dev-card img { width: 64px; height: 64px; border-radius: 50%; flex: none; border: 2px solid rgba(240,192,64,.3); }
+.dev-card .info { min-width: 0; }
+.dev-card .info b { display: block; font-family: var(--bebas); font-size: .9rem; text-transform: uppercase; letter-spacing: .04em; color: var(--gold); }
+.dev-card .info span { font-size: .75rem; color: var(--text-dim); line-height: 1.5; display: block; margin-top: 3px; }
+.modal .acoes-modal { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+footer { margin-top: 48px; text-align: center; color: var(--text-muted); font-size: .68rem; line-height: 1.9; padding-top: 20px; border-top: 1px solid var(--g700); }
+footer b { color: var(--text-dim); }
+.footer-brand { display: inline-flex; align-items: center; gap: 7px; font-size: .7rem; color: var(--gold-dim); margin-bottom: 10px; opacity: .8; text-decoration: none; }
+.footer-brand img { width: 18px; height: 18px; border-radius: 50%; filter: saturate(.6) brightness(.85); }
+.link-sobre { color: var(--gold-dim); text-decoration: underline; cursor: pointer; background: none; border: 0; font: inherit; padding: 0; font-size: .7rem; }
+
+@media (max-width: 520px) {
+  .rodape-jogo { flex-direction: column; align-items: stretch; }
+  .grupo-botoes { justify-content: stretch; }
+  .grupo-botoes .btn { flex: 1; justify-content: center; }
+  .canal-info { justify-content: center; }
+  .placar { padding: 16px 14px 12px; }
+  .centro { padding: 0 10px; }
+  .vs-sep { font-size: 2rem; }
+  .dev-card { flex-direction: column; text-align: center; }
+  .campo-header { padding: 32px 16px 28px; }
+  .slide { flex-wrap: wrap; justify-content: center; text-align: center; padding-bottom: 20px; }
+  .slide .texto { text-align: center; flex-basis: 100%; }
+  .wsl-stop-inner { flex-wrap: wrap; }
+  .stop-datas { min-width: unset; text-align: left; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <header>
+    <div class="campo-header">
+      <div class="patrocinio">
+        <img id="logoTopo" alt="AC Mahrtins">
+        <span id="marcaTopo"></span>
+      </div>
+      <div class="titulo-app">
+        <h1>Bora <span class="destaque">Brasil!</span></h1>
+        <div class="hub-badge">
+          <span class="dot"></span>
+          Copa 2026
+          <span style="color:var(--text-muted);margin:0 2px">·</span>
+          <span class="dot dot-ocean"></span>
+          WSL Saquarema
+        </div>
+      </div>
+    </div>
+
+    <!-- Abas de esporte -->
+    <div class="sport-tabs" role="tablist" aria-label="Esporte">
+      <button class="sport-tab ativo" data-esporte="copa" role="tab" aria-selected="true">
+        <span class="tab-icon">⚽</span>
+        <span class="tab-label">Copa 2026</span>
+      </button>
+      <button class="sport-tab" data-esporte="surf" role="tab" aria-selected="false">
+        <span class="tab-icon">🏄</span>
+        <span class="tab-label">WSL Surf</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <!-- COPA -->
+    <div class="secao-copa ativo" id="painelCopa">
+      <div class="bloco-copa">
+        <div class="bloco-copa-header">
+          <span class="bloco-icone">⚽</span>
+          <span class="bloco-titulo">Copa do Mundo 2026</span>
+          <span class="bloco-badge">FIFA · 48 países</span>
+        </div>
+        <div class="bloco-copa-body">
+          <!-- Banner Copa -->
+          <div class="banner-wrap" id="bannerCopa" aria-label="Patrocinador Copa" style="margin:10px -10px 0;border-radius:0"></div>
+          <!-- Ações e filtros Copa -->
+          <div class="acoes-globais" id="acoesCopa" style="margin-top:14px">
+            <button class="btn btn-cal" id="btnCalTudo">📅 Salvar agenda completa</button>
+            <button class="btn btn-link" id="btnNotif">🔔 Alertas de hoje</button>
+            <button class="btn btn-link" id="btnHistorico">📋 Histórico de resultados</button>
+            <button class="btn btn-link" id="btnSobre">ℹ️ Sobre</button>
+          </div>
+          <nav class="filtros-nav" id="filtrosCopa" aria-label="Filtrar partidas">
+            <button class="chip ativo" data-filtro="hoje">Hoje</button>
+            <button class="chip" data-filtro="brasil">🇧🇷 Brasil</button>
+            <button class="chip" data-filtro="todos">72 jogos</button>
+          </nav>
+          <div class="lista" id="lista" aria-live="polite"></div>
+          <p class="aviso">⚽ <b>Mata-mata:</b> de 29/06 a 19/07 (final no MetLife Stadium). Os confrontos entram aqui assim que a fase de grupos definir os classificados.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SURF -->
+    <div class="secao-surf" id="painelSurf">
+      <div class="bloco-surf">
+        <div class="bloco-surf-header">
+          <span class="bloco-icone">🏄</span>
+          <span class="bloco-titulo">WSL Championship Tour 2026</span>
+          <span class="bloco-badge">CT Stop 6 · Saquarema</span>
+        </div>
+        <div class="bloco-surf-body">
+          <!-- Banner Surf -->
+          <div class="banner-wrap surf-mode" id="bannerSurf" aria-label="Patrocinador Surf" style="margin:10px -10px 0;border-radius:0"></div>
+          <!-- Ações e filtros Surf -->
+          <div class="acoes-globais" id="acoesSurf" style="margin-top:14px">
+            <button class="btn btn-surf" id="btnCalSurf">📅 Salvar WSL no calendário</button>
+            <button class="btn btn-link" id="btnSobreSurf">ℹ️ Sobre</button>
+          </div>
+          <nav class="filtros-surf filtros-nav" id="filtrosSurf" aria-label="Filtrar WSL">
+            <button class="chip chip-surf ativo" data-filtro-surf="saquarema">🌊 Saquarema</button>
+            <button class="chip chip-surf" data-filtro-surf="todos">CT Completo</button>
+          </nav>
+          <div id="surfConteudo"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL SOBRE -->
+  <div class="modal-fundo" id="modalSobre" role="dialog" aria-modal="true" aria-labelledby="tituloSobre">
+    <div class="modal">
+      <button class="fechar-x" data-acao="fechar-sobre" aria-label="Fechar">✕</button>
+      <h2 id="tituloSobre">Sobre o app</h2>
+      <p>O <b>Bora Brasil!</b> nasceu para resolver uma dor de todo torcedor: saber <b>quando</b> é o jogo e <b>onde assistir de graça, sem pirataria</b>. Agora com surf! Copa do Mundo 2026 + WSL em Saquarema — tudo em um lugar.</p>
+      <h2>O idealizador</h2>
+      <div class="dev-card">
+        <img id="logoSobre" alt="AC Mahrtins">
+        <div class="info">
+          <b id="devNome"></b>
+          <span id="devBio"></span>
+        </div>
+      </div>
+      <p>Este app é uma demonstração prática de como a <b>tecnologia pode servir às pessoas</b> — o mesmo princípio que aplico no treinamento de equipes e líderes. Quer a sua marca aqui, ou quer conversar sobre desenvolvimento humano?</p>
+      <div class="acoes-modal">
+        <a class="btn btn-zap" id="zapSobre" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+        <a class="btn btn-cal" id="zapAnunciar" target="_blank" rel="noopener noreferrer">📣 Anunciar aqui</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Histórico de Resultados -->
+  <div class="modal-fundo" id="modalHistorico" role="dialog" aria-modal="true" aria-labelledby="tituloHistorico">
+    <div class="modal">
+      <button class="fechar-x" data-acao="fechar-historico" aria-label="Fechar">✕</button>
+      <h2 id="tituloHistorico">📋 Histórico de Resultados</h2>
+      <p style="font-size:.9rem;color:#8BA898;margin-bottom:12px;">Partidas já finalizadas com os placares da Copa 2026. Sincronizado automaticamente.</p>
+      <div id="conteudoHistorico" style="max-height:65vh;overflow-y:auto;">
+        <p style="text-align:center;color:#8BA898;">Carregando resultados...</p>
+      </div>
+      <p style="font-size:.75rem;color:#8BA898;margin-top:12px;text-align:center;" id="ultimaAtualizacao"></p>
+    </div>
+  </div>
+
+  <a class="zap-flutuante" id="zapFlutuante" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="Fale com AC Mahrtins">💬</a>
+  <div class="toast" id="toast" role="status"></div>
+
+  <footer>
+    <a class="footer-brand" id="footerBrandLink" target="_blank" rel="noopener noreferrer">
+      <img id="footerLogo" alt="AC Mahrtins">
+      <span id="creditoRodape"></span>
+    </a><br>
+    <button class="link-sobre" data-acao="abrir-sobre">Conheça o trabalho do idealizador →</button><br><br>
+    <b>Aviso legal:</b> app independente, sem vínculo com FIFA, WSL ou emissoras. Copa: transmissão pela CazéTV (YouTube) e TV Globo. WSL: transmissão pelo worldsurfleague.com, app WSL e Globo Play. Horários: Brasília. Dados WSL: worldsurfleague.com (fonte oficial).
+  </footer>
+</div>
+
+<script>
+/* ==============================================================
+   MARCA
+   ============================================================== */
+const LOGO_B64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAABE4UlEQVR42u29e3yU5Zn//7mfZ86nzCSBnMwJsGESELWKuFULUXoCYnUVDyigoKuLB3pcd7+tIW53t+3Pbl0rv+7Xghwq1UZKS9R2VyCi0hIjRRGSIVVyIORATnM+z/Pc3z8m9/BkmCQzk0lIQq7Xa16Zmcw8c3rPZz7XdV/3fQMzMRMzMRMzMRMzMRPjHmTmLUhNiKLIj3YbjuOEmXdqBuhJD2sioEYfi5A/gNJvzkA/E+MDriiKfG1trby2tlZeXV3NJ3rfkU7xHIcChNJ9PKX7eFEU+crKSm7mk4k/ZDPKCxw+fJjr6+sTJeooRN8u4HeWUnBFdtuAyWAwXk0IKQ4rKj8HAIIBr/QeC6M0/CQA+H3uweMJzZTSFgBwOGyfpBnTrQRiq0KpbyQcJ4DcKcR6rocPH+aWLTssEPKcOIPujOW4COLy8vLgcOBSUVxGCCkOAxsN6PhFT09Hl4wT3yW89h0AUMndB42ZpZ0X3e7t11WzvqEIUvrNGZtyuQEt/bmXfvjV1dV8xaqvltpstmvS0kx3TDS8kecXOHdByxVXDLk+6HfA7k2LQB4L8J63X1cddnPBu+9eLRICOgP0NAdZCrEoin3P+fY1FIrr0k2GL18KgEeDeqSQAq5W4fsAIAW8trZWvuy99wRSVSXOAD1N1fh8d5eR0kAFheI6AE+km3RD7jNgdSH6uskCddDvuOg6udIQOd9nIxG4P/6FuWdZFQmx94GQP4DE8OMzQE9RNbb1Neb6gtrbKBTfTTfpFkgBlsZkgHk0lY4GO+TvAgDo9SoSIoXU62hCKNDTFBQVPw4FxYOF5oc7IpUTuo8H7rws7AiZbiBXVlZyjz/28ANUcH8FvOl+Bms0xFMZZinQ0tDrVQQAnE4f9Xl7tnO6r36QnVO4m/2/pmajbOXKl+l0TiLJdAFZYisiajwcxNMV6Gi4nU4fZartCN7whtls9kx3xSZTFWYGssVi0ZiMmrsoFDtHU+PLCeiLbj8Its2f/kZZWUUE7OnmsacU0NXV1fzq1asFAKivr9cV5GfdyUBOBOLLDeig3w25UjsEbOazKX2WA4DpMlgzJYCW2ouIRx60FsmCfLkpNC92wOsToFbxELi8CNh589bvmk42hEwFmJm96O5qW5sqkCcb0MlWORIBGgC8vrDDUKvC1U23X749GJJtYVWRnrdfV81eca9vBuhxVGWLxaIx6unL4E33p/pxLieFZsGgjgbbGsh+uqyswjOV1ZpMVpijVRnAgvF4rLEBHW46Ys1GDoftEwBIM6ZbAYA1MoU9qrSZafjRSSnYsUBONdBSsP0h+RAbUlOzUVZRsS00lYCedN12tbW1co7jgvX19br8/Px/p8ATl/5ZXQDXbrf+/kJ3nLYxjpru7lhf2IDfWQoANpvtGta9N9i5t5D1c8hxblSwUxVhf40S0efb0fnZyzfVndT/sKLivu6pBvWkUejKykqusrKScBwnSFXZZrMCAIxG07g8biyFFkW6fyi4+mHBlQ61NzU1KQGgpKTEL70sjZKSEv9IX4JIr4ng/goAaJXO+6VD3QzuVCt0LLX2+mW3FZof7mg+tWlWUekvBqbCgMykAJpZjOrqan7BggU/M5lMT4XVa/xgHgoyd9Jq7ftZmjHd6rC7PsjKzrFFf9lWrFihcblc/qVLl4qp/GBFUeQdA6ezDOnzzw/X0soAD4ncsjS1PYcB7nU0jQvQDGqvT4DAGR6aShbkkgNdW1srLy8vD0oTPwYyi1QCLQVZEMQXAt6O56PbMS0WiwYA2MiaNKqrq/mioiK1KIpzARSES150LsdxBbEeT6/Xc06nU9Tr9Vy6SXucXd/a1nVCr9dTjuM+j/U4FotFE0vNbX2NuV4ffhoSuWWZRpoTL9iJAo1ASxhswzy4/fLtPv+Jf5mzYGvvZIf6kgLNlLmhoeGq9PT0V6UWI5VADxlBFKy/Ibz2HUIUNUyJRVHkm5qalNFg1dfX60RRnEspXcZxXAGldB6AfI7jFoVhHT6hHO05s9ep03JdAOB0iW+km7TH+wdcn8SCPBpwptyi679vVqlnb2BD3bFAFri8pIFmUPtD8iaX54QtcxZs7aV0ykuXOUebQRrZQJ9SyCvXMFJbTWYB7uFMBt9NqKihtdiqRAP/bYeSADAAn3oPrJX2Oq3OqUEfZxoID9kSoGy8JKWwvL6cVOUmrAhCQnm9dgKMU9+AB wJelCXhADCaAy63N3dLiKCLdgbAD+fBsKY9RiX3YKbGQiAWIl3yIXJw78M6h2pZqkdSVHHnC+ADQF1H+kEIKAAAAAAElFkJggg==";
+
+const MARCA = {
+  appNome: "Bora Brasil!",
+  empresa: "AC Mahrtins · Coaching e Consultoria",
+  responsavel: "Antonio Cesar Martins",
+  slogan: "Treinamento empresarial e desenvolvimento humano",
+  credencial: "33 anos de experiência comprovada",
+  whatsapp: "5522999680509",
+  msgContato: "Olá, Antonio! Conheci o app Bora Brasil! e quero saber mais sobre seu trabalho de treinamento empresarial.",
+  msgAnuncio: "Olá! Tenho interesse em anunciar a minha marca no app Bora Brasil!",
+  idPlanilhaGoogle: "1kAOMuhDWctJSW2TQekc-GuJhqC8TWFE8LvGpOAoDeDE"
+};
+const zap = (msg) => "https://wa.me/" + MARCA.whatsapp + "?text=" + encodeURIComponent(msg);
+
+/* ==============================================================
+   DADOS WSL 2026 CT
+   ============================================================== */
+const WSL_CT_2026 = [
+  { stop: 1,  nome: "Rip Curl Pro Bells Beach",            local: "Bells Beach, Vic, Austrália",      inicio: "2026-04-01", fim: "2026-04-11", passou: true,  brasil: false },
+  { stop: 2,  nome: "Western Australia Margaret River Pro",local: "Margaret River, WA, Austrália",    inicio: "2026-04-17", fim: "2026-04-27", passou: true,  brasil: false },
+  { stop: 3,  nome: "Bonsoy Gold Coast Pro",               local: "Snapper Rocks, QLD, Austrália",    inicio: "2026-05-02", fim: "2026-05-12", passou: true,  brasil: false },
+  { stop: 4,  nome: "Raglan Pro",                          local: "Raglan, Nova Zelândia",            inicio: "2026-05-15", fim: "2026-05-25", passou: true,  brasil: false },
+  { stop: 5,  nome: "Punta Roca Pro",                      local: "Punta Roca, El Salvador",          inicio: "2026-06-05", fim: "2026-06-15", passou: false, brasil: false },
+  { stop: 6,  nome: "Vivo Rio Pro",                        local: "Praia de Itaúna, Saquarema · RJ",  inicio: "2026-06-19", fim: "2026-06-27", passou: false, brasil: true  },
+  { stop: 7,  nome: "Corona Cero Open J-Bay",              local: "Jeffreys Bay, África do Sul",      inicio: "2026-07-10", fim: "2026-07-20", passou: false, brasil: false },
+  { stop: 8,  nome: "Lexus Tahiti Pro",                    local: "Teahupo'o, Taiti, Polinésia Fr.",  inicio: "2026-08-08", fim: "2026-08-18", passou: false, brasil: false },
+  { stop: 9,  nome: "Lexus Cloudbreak Pro",                local: "Cloudbreak, Fiji",                 inicio: "2026-08-25", fim: "2026-09-04", passou: false, brasil: false },
+  { stop: 10, nome: "Lower Trestles Pro",                  local: "San Clemente, Califórnia, EUA",    inicio: "2026-09-11", fim: "2026-09-20", passou: false, brasil: false },
+  { stop: 11, nome: "Surf Abu Dhabi",                      local: "Abu Dhabi, Emirados Árabes",       inicio: "2026-10-14", fim: "2026-10-18", passou: false, brasil: false },
+  { stop: 12, nome: "Peniche Pro",                         local: "Supertubos, Peniche, Portugal",    inicio: "2026-10-22", fim: "2026-11-01", passou: false, brasil: false },
+  { stop: 13, nome: "Pipe Masters",                        local: "Banzai Pipeline, Havaí, EUA",      inicio: "2026-12-08", fim: "2026-12-20", passou: false, brasil: false }
+];
+
+const WSL_TRANSMISSAO = [
+  { nome: "worldsurfleague.com", cor: "#0077B6", obs: "Ao vivo — gratuito",        url: "https://www.worldsurfleague.com/events/2026/ct/440/vivo-rio-pro/main" },
+  { nome: "Globo Play",          cor: "#F0C040", obs: "Ao vivo no Brasil",          url: "https://globoplay.globo.com/agora-na-tv/" },
+  { nome: "App WSL",             cor: "#00E676", obs: "iOS e Android — gratuito",   url: "https://www.worldsurfleague.com/help/how-to-watch" },
+  { nome: "YouTube WSL",         cor: "#FF0000", obs: "Fases iniciais — gratuito",  url: "https://www.youtube.com/channel/UChuLeaTGRcfzo0UjL-2qSbQ" }
+];
+
+/* ==============================================================
+   COPA — TABELA COMPLETA
+   ============================================================== */
+const CONFIG = {
+  CANAL_CAZE: "https://www.youtube.com/@CazeTV/streams",
+  LINK_GLOBO: "https://globoplay.globo.com/agora-na-tv/",
+  ALARME_ICS_MIN: 30,
+  ALARME_NOTIF_MIN: 15,
+  DURACAO_JOGO_MIN: 120,
+  BANNER_INTERVALO_MS: 7000
+};
+
+const TABELA = [
+ ["2026-06-11","16:00","México","África do Sul","Cidade do México"],
+ ["2026-06-11","23:00","Coreia do Sul","República Tcheca","Guadalajara"],
+ ["2026-06-12","16:00","Canadá","Bósnia e Herzegovina","Toronto"],
+ ["2026-06-12","22:00","Estados Unidos","Paraguai","Los Angeles"],
+ ["2026-06-13","16:00","Catar","Suíça","San Francisco"],
+ ["2026-06-13","19:00","Brasil","Marrocos","Nova York/NJ"],
+ ["2026-06-13","22:00","Haiti","Escócia","Boston"],
+ ["2026-06-14","01:00","Austrália","Turquia","Vancouver"],
+ ["2026-06-14","14:00","Alemanha","Curaçau","Houston"],
+ ["2026-06-14","17:00","Holanda","Japão","Dallas"],
+ ["2026-06-14","20:00","Costa do Marfim","Equador","Filadélfia"],
+ ["2026-06-14","23:00","Tunísia","Suécia","Monterrey"],
+ ["2026-06-15","13:00","Espanha","Cabo Verde","Atlanta"],
+ ["2026-06-15","16:00","Bélgica","Egito","Seattle"],
+ ["2026-06-15","19:00","Arábia Saudita","Uruguai","Miami"],
+ ["2026-06-15","22:00","Irã","Nova Zelândia","Los Angeles"],
+ ["2026-06-16","14:00","Argentina","Argélia","Kansas City"],
+ ["2026-06-16","16:00","França","Senegal","Nova York/NJ"],
+ ["2026-06-16","19:00","Iraque","Noruega","Boston"],
+ ["2026-06-17","01:00","Áustria","Jordânia","San Francisco"],
+ ["2026-06-17","14:00","Portugal","RD Congo","Houston"],
+ ["2026-06-17","17:00","Inglaterra","Croácia","Dallas"],
+ ["2026-06-17","20:00","Gana","Panamá","Toronto"],
+ ["2026-06-17","23:00","Uzbequistão","Colômbia","Cidade do México"],
+ ["2026-06-18","13:00","República Tcheca","África do Sul","Atlanta"],
+ ["2026-06-18","16:00","Suíça","Bósnia e Herzegovina","Los Angeles"],
+ ["2026-06-18","19:00","Canadá","Catar","Vancouver"],
+ ["2026-06-18","22:00","México","Coreia do Sul","Guadalajara"],
+ ["2026-06-19","01:00","Turquia","Paraguai","San Francisco"],
+ ["2026-06-19","16:00","Estados Unidos","Austrália","Seattle"],
+ ["2026-06-19","19:00","Escócia","Marrocos","Boston"],
+ ["2026-06-19","22:00","Brasil","Haiti","Filadélfia"],
+ ["2026-06-20","14:00","Holanda","Tunísia","Houston"],
+ ["2026-06-20","17:00","Alemanha","Costa do Marfim","Toronto"],
+ ["2026-06-20","21:00","Equador","Curaçau","Kansas City"],
+ ["2026-06-21","01:00","Japão","Suécia","Monterrey"],
+ ["2026-06-21","13:00","Espanha","Arábia Saudita","Atlanta"],
+ ["2026-06-21","16:00","Bélgica","Irã","Los Angeles"],
+ ["2026-06-21","19:00","Uruguai","Cabo Verde","Miami"],
+ ["2026-06-21","22:00","Nova Zelândia","Egito","Vancouver"],
+ ["2026-06-22","14:00","Argentina","Áustria","Dallas"],
+ ["2026-06-22","18:00","França","Iraque","Filadélfia"],
+ ["2026-06-22","21:00","Noruega","Senegal","Nova York/NJ"],
+ ["2026-06-23","00:00","Jordânia","Argélia","San Francisco"],
+ ["2026-06-23","14:00","Portugal","Uzbequistão","Houston"],
+ ["2026-06-23","17:00","Inglaterra","Gana","Boston"],
+ ["2026-06-23","20:00","Panamá","Croácia","Toronto"],
+ ["2026-06-23","23:00","Colômbia","RD Congo","Guadalajara"],
+ ["2026-06-24","16:00","Suíça","Canadá","Vancouver"],
+ ["2026-06-24","16:00","Bósnia e Herzegovina","Catar","Seattle"],
+ ["2026-06-24","19:00","Escócia","Brasil","Miami"],
+ ["2026-06-24","19:00","Marrocos","Haiti","Atlanta"],
+ ["2026-06-24","22:00","República Tcheca","México","Cidade do México"],
+ ["2026-06-24","22:00","África do Sul","Coreia do Sul","Monterrey"],
+ ["2026-06-25","17:00","Equador","Alemanha","Nova York/NJ"],
+ ["2026-06-25","17:00","Curaçau","Costa do Marfim","Filadélfia"],
+ ["2026-06-25","20:00","Japão","Holanda","Dallas"],
+ ["2026-06-25","20:00","Tunísia","Suécia","Kansas City"],
+ ["2026-06-25","23:00","Turquia","Estados Unidos","Los Angeles"],
+ ["2026-06-25","23:00","Paraguai","Austrália","San Francisco"],
+ ["2026-06-26","16:00","Noruega","França","Boston"],
+ ["2026-06-26","16:00","Senegal","Iraque","Toronto"],
+ ["2026-06-26","21:00","Cabo Verde","Arábia Saudita","Houston"],
+ ["2026-06-26","21:00","Uruguai","Espanha","Guadalajara"],
+ ["2026-06-27","00:00","Egito","Irã","Seattle"],
+ ["2026-06-27","00:00","Nova Zelândia","Bélgica","Vancouver"],
+ ["2026-06-27","18:00","Panamá","Inglaterra","Nova York/NJ"],
+ ["2026-06-27","18:00","Croácia","Gana","Filadélfia"],
+ ["2026-06-27","20:30","Colômbia","Portugal","Miami"],
+ ["2026-06-27","20:30","RD Congo","Uzbequistão","Atlanta"],
+ ["2026-06-27","23:00","Argélia","Áustria","Kansas City"],
+ ["2026-06-27","23:00","Jordânia","Argentina","Dallas"]
+];
+
+
+const BANDEIRAS = {
+ "México":"🇲🇽","África do Sul":"🇿🇦","Coreia do Sul":"🇰🇷","República Tcheca":"🇨🇿",
+ "Canadá":"🇨🇦","Bósnia e Herzegovina":"🇧🇦","Estados Unidos":"🇺🇸","Paraguai":"🇵🇾",
+ "Austrália":"🇦🇺","Turquia":"🇹🇷","Catar":"🇶🇦","Suíça":"🇨🇭","Brasil":"🇧🇷",
+ "Marrocos":"🇲🇦","Haiti":"🇭🇹","Escócia":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Alemanha":"🇩🇪","Curaçao":"🇨🇼",
+ "Holanda":"🇳🇱","Japão":"🇯🇵","Costa do Marfim":"🇨🇮","Equador":"🇪🇨","Suécia":"🇸🇪",
+ "Tunísia":"🇹🇳","Espanha":"🇪🇸","Cabo Verde":"🇨🇻","Bélgica":"🇧🇪","Egito":"🇪🇬",
+ "Arábia Saudita":"🇸🇦","Uruguai":"🇺🇾","Irã":"🇮🇷","Nova Zelândia":"🇳🇿",
+ "Argentina":"🇦🇷","Argélia":"🇩🇿","França":"🇫🇷","Senegal":"🇸🇳","Iraque":"🇮🇶",
+ "Noruega":"🇳🇴","Áustria":"🇦🇹","Jordânia":"🇯🇴","Portugal":"🇵🇹","RD Congo":"🇨🇩",
+ "Inglaterra":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Croácia":"🇭🇷","Gana":"🇬🇭","Panamá":"🇵🇦",
+ "Uzbequistão":"🇺🇿","Colômbia":"🇨🇴"
+};
+
+const JOGOS = TABELA.map((t, i) => ({
+  id: i + 1, data: t[0], horario: t[1],
+  selecao1: t[2], selecao2: t[3], cidade: t[4],
+  ehBrasil: (t[2] === "Brasil" || t[3] === "Brasil"),
+  id_video_youtube: null
+}));
+
+/* ==============================================================
+   BANNER
+   ============================================================== */
+const BANNER_SLIDES_COPA = [
+  { logo: true, titulo: "AC Mahrtins", frase: MARCA.slogan + " · " + MARCA.credencial + ".", cta: "Falar comigo", link: zap(MARCA.msgContato) },
+  { emoji: "📣", titulo: "Patrocine o app", frase: "Coloque a sua marca na Copa 2026 e no WSL Saquarema!", cta: "Saiba mais", link: zap(MARCA.msgAnuncio) }
+];
+const BANNER_SLIDES_SURF = [
+  { emoji: "🌊", titulo: "WSL em Saquarema", frase: "19 a 27 de junho · Praia de Itaúna · Entrada gratuita na praia!", cta: "Saiba mais", link: "https://www.worldsurfleague.com/events/2026/ct/440/vivo-rio-pro/main" },
+  { logo: true, titulo: "AC Mahrtins", frase: MARCA.slogan + " · " + MARCA.credencial + ".", cta: "Falar comigo", link: zap(MARCA.msgContato) }
+];
+
+let esporteAtivo = "copa";
+
+function montarBanner(slides, bannerId) {
+  const b = document.getElementById(bannerId);
+  if (!b) return;
+  b.innerHTML = slides.map((s, i) => `
+    <div class="slide ${i === 0 ? "ativo" : ""}" data-slide="${i}">
+      ${s.logo ? `<img src="${LOGO_B64}" alt="${MARCA.responsavel}">` : `<span class="emoji-anuncio" aria-hidden="true">${s.emoji}</span>`}
+      <span class="texto">
+        <span class="titulo-slide">${s.titulo}</span>
+        <span class="frase-slide">${s.frase}</span>
+      </span>
+      <a class="cta-slide" href="${s.link}" target="_blank" rel="noopener noreferrer">${s.cta}</a>
+    </div>`).join("") +
+    `<div class="banner-dots">${slides.map((_,i) => `<i class="${i===0?"ativo":""}"></i>`).join("")}</div>`;
+
+  // timer independente por banner
+  if (b._timer) clearInterval(b._timer);
+  b._slide = 0;
+  if (slides.length > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    b._timer = setInterval(() => {
+      b._slide = (b._slide + 1) % slides.length;
+      b.querySelectorAll(".slide").forEach((s,i) => s.classList.toggle("ativo", i === b._slide));
+      b.querySelectorAll(".banner-dots i").forEach((p,i) => p.classList.toggle("ativo", i === b._slide));
+    }, CONFIG.BANNER_INTERVALO_MS);
+  }
+}
+
+/* ==============================================================
+   TROCA DE ESPORTE
+   ============================================================== */
+function trocarEsporte(esporte) {
+  esporteAtivo = esporte;
+
+  document.querySelectorAll(".sport-tab").forEach(t => {
+    const ativo = t.dataset.esporte === esporte;
+    t.classList.toggle("ativo", ativo);
+    t.setAttribute("aria-selected", ativo);
+  });
+
+  ["copa","surf"].forEach(e => {
+    const ativo = e === esporte;
+    document.querySelectorAll(".secao-" + e).forEach(el => el.classList.toggle("ativo", ativo));
+  });
+
+  if (esporte === "surf") {
+    renderizarSurf("saquarema");
+  } else {
+    renderizar();
+  }
+}
+
+document.querySelector(".sport-tabs").addEventListener("click", ev => {
+  const tab = ev.target.closest(".sport-tab"); if (!tab) return;
+  trocarEsporte(tab.dataset.esporte);
+});
+
+/* ==============================================================
+   COPA — RENDERIZAÇÃO
+   ============================================================== */
+const lista = document.getElementById("lista");
+let filtroAtivo = "hoje";
+
+const hojeISO = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
+const dataDoJogo = (j) => new Date(j.data + "T" + j.horario + ":00-03:00");
+const rotuloDia = (iso) => new Intl.DateTimeFormat("pt-BR", {weekday:"long",day:"2-digit",month:"long"}).format(new Date(iso + "T12:00:00-03:00"));
+
+function filtrar() {
+  if (filtroAtivo === "brasil") return JOGOS.filter(j => j.ehBrasil);
+  if (filtroAtivo === "hoje")   return JOGOS.filter(j => j.data === hojeISO());
+  return JOGOS;
+}
+
+function montarCartao(j) {
+  const art = document.createElement("article");
+  art.className = "jogo" + (j.ehBrasil ? " destaque-br" : "");
+  art.id = "jogo-" + j.id;
+  art.innerHTML = `
+    <div class="placar">
+      <div class="time">
+        <span class="bandeira" aria-hidden="true">${BANDEIRAS[j.selecao1]||"🏳️"}</span>
+        <span class="nome">${j.selecao1}</span>
+      </div>
+      <div class="centro">
+        <span class="vs-sep">${resultadosGoogle[j.id] ? resultadosGoogle[j.id].gols1 + " x " + resultadosGoogle[j.id].gols2 : j.horario}</span>
+        <span class="hora-jogo">Brasília</span>
+        <span class="cidade-jogo">${j.cidade}</span>
+      </div>
+      <div class="time">
+        <span class="bandeira" aria-hidden="true">${BANDEIRAS[j.selecao2]||"🏳️"}</span>
+        <span class="nome">${j.selecao2}</span>
+      </div>
+    </div>
+    <div class="rodape-jogo">
+      <span class="canal-info"><span class="canal-dot"></span><b>CazéTV</b>&nbsp;· YouTube</span>
+      <span class="grupo-botoes">
+        <button class="btn btn-cal btn-mini" data-acao="ics" data-id="${j.id}" title="Salvar no calendário">📅</button>
+        ${j.ehBrasil ? `<a class="btn btn-link btn-mini" href="${CONFIG.LINK_GLOBO}" target="_blank" rel="noopener noreferrer">Globo ↗</a>` : ""}
+        <button class="btn btn-assistir btn-mini" data-acao="player" data-id="${j.id}">▶ Assistir</button>
+      </span>
+    </div>
+    <div class="area-player">
+      <div class="barra-player">
+        <span>Player oficial · CazéTV / YouTube</span>
+        <button class="btn-fechar" data-acao="fechar" data-id="${j.id}">✕ Fechar</button>
+      </div>
+      <div class="moldura">
+        <div class="yt-alvo" id="yt-${j.id}"></div>
+        <div class="fallback" id="fb-${j.id}" role="alert"></div>
+      </div>
+    </div>`;
+  return art;
+}
+
+function renderizar() {
+  lista.innerHTML = "";
+  const jogos = filtrar();
+  if (!jogos.length) {
+    lista.innerHTML = `<div class="vazio">Sem partidas neste filtro hoje.<br>Toque em <b>72 jogos</b> para ver a tabela completa. ⚽</div>`;
+    return;
+  }
+  let diaAtual = null;
+  jogos.forEach(j => {
+    if (j.data !== diaAtual) {
+      diaAtual = j.data;
+      const h = document.createElement("h2");
+      h.className = "cabecalho-dia" + (j.data === hojeISO() ? " hoje" : "");
+      h.textContent = (j.data === hojeISO() ? "Hoje · " : "") + rotuloDia(j.data);
+      lista.appendChild(h);
+    }
+    lista.appendChild(montarCartao(j));
+  });
+}
+
+/* ==============================================================
+   SURF — RENDERIZAÇÃO
+   ============================================================== */
+let filtroSurf = "saquarema";
+
+function formatarData(iso) {
+  const d = new Date(iso + "T12:00:00-03:00");
+  return new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short" }).format(d);
+}
+
+function contagem(dataIso) {
+  const alvo = new Date(dataIso + "T00:00:00-03:00");
+  const agora = new Date();
+  const diff = alvo - agora;
+  if (diff <= 0) return null;
+  const dias  = Math.floor(diff / 86400000);
+  const horas = Math.floor((diff % 86400000) / 3600000);
+  const min   = Math.floor((diff % 3600000) / 60000);
+  return { dias, horas, min };
+}
+
+function renderizarSurf(filtro) {
+  filtroSurf = filtro;
+  const el = document.getElementById("surfConteudo");
+
+  document.querySelectorAll(".chip-surf").forEach(c => {
+    c.classList.toggle("ativo", c.dataset.filtroSurf === filtro);
+  });
+
+  if (filtro === "saquarema") {
+    const stop = WSL_CT_2026.find(s => s.brasil);
+    const cnt  = contagem(stop.inicio);
+    const hoje = hojeISO();
+    const emAndamento = hoje >= stop.inicio && hoje <= stop.fim;
+    const passou = hoje > stop.fim;
+
+    el.innerHTML = `
+      <div class="surf-hero">
+        <div class="surf-hero-inner">
+          <div class="surf-event-tag">
+            ${emAndamento ? '<span class="live-dot"></span> Ao vivo agora' : passou ? '✓ Encerrado' : '🏄 CT Stop 6 · WSL 2026'}
+          </div>
+          <div class="surf-event-name">Vivo Rio Pro</div>
+          <div class="surf-event-sub">📍 Praia de Itaúna, Saquarema · Rio de Janeiro, Brasil</div>
+
+          <div class="surf-datas">
+            <div class="data-badge">
+              <span class="data-label">Início</span>
+              ${formatarData(stop.inicio)} / 2026
+            </div>
+            <div style="color:var(--text-muted);font-size:.8rem">→</div>
+            <div class="data-badge">
+              <span class="data-label">Final</span>
+              ${formatarData(stop.fim)} / 2026
+            </div>
+          </div>
+
+          ${cnt && !emAndamento ? `
+          <div class="surf-countdown">
+            <div class="count-item"><span class="count-num">${cnt.dias}</span><span class="count-label">dias</span></div>
+            <div class="count-item"><span class="count-num">${cnt.horas}</span><span class="count-label">horas</span></div>
+            <div class="count-item"><span class="count-num">${cnt.min}</span><span class="count-label">min</span></div>
+          </div>` : ""}
+
+          <div class="surf-actions">
+            <a class="btn btn-surf btn-mini" href="https://www.worldsurfleague.com/events/2026/ct/440/vivo-rio-pro/main" target="_blank" rel="noopener noreferrer">🌊 Ver no WSL.com</a>
+            <button class="btn btn-cal btn-mini" data-acao="ics-surf">📅 Salvar no calendário</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="onde-assistir" style="margin-top:12px">
+        <div class="onde-titulo">📺 Onde assistir (gratuito)</div>
+        ${WSL_TRANSMISSAO.map(c => `
+          <div class="canal-surf">
+            <span class="dot" style="background:${c.cor}"></span>
+            <span class="canal-nome">${c.nome}</span>
+            <span class="canal-obs">${c.obs}</span>
+            <a href="${c.url}" target="_blank" rel="noopener noreferrer">↗ Acessar</a>
+          </div>`).join("")}
+      </div>
+
+      <p class="aviso aviso-surf" style="margin-top:12px">
+        🎶 <b>WSL Sunset · 18 Jun:</b> show gratuito na areia com Cidade Negra, Veigh e Buchecha — às 17h. Entrada gratuita! Dados: <a href="https://www.worldsurfleague.com" target="_blank" rel="noopener noreferrer" style="color:var(--ocean-light)">worldsurfleague.com</a>
+      </p>`;
+  } else {
+    el.innerHTML = `<div class="wsl-grid">${WSL_CT_2026.map(s => {
+      let statusClass = "status-futuro", statusTxt = "Aguardando";
+      if (s.passou) { statusClass = "status-passou"; statusTxt = "Encerrado"; }
+      else if (s.brasil) { statusClass = "status-breve"; statusTxt = "Em breve!"; }
+      return `<div class="wsl-stop${s.brasil ? " brasil" : ""}${s.passou ? " passou" : ""}">
+        <div class="wsl-stop-inner">
+          <span class="stop-num">${s.stop}</span>
+          <div class="stop-info">
+            <div class="stop-nome">${s.brasil ? "🌊 " : ""}${s.nome}</div>
+            <div class="stop-local">${s.local}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <span class="stop-datas">${formatarData(s.inicio)} – ${formatarData(s.fim)}</span>
+            <span class="stop-status ${statusClass}">${statusTxt}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join("")}</div>
+    <p class="aviso aviso-surf" style="margin-top:12px">📡 Calendário oficial WSL CT 2026 · Fonte: <a href="https://www.worldsurfleague.com/posts/546310" target="_blank" rel="noopener noreferrer" style="color:var(--ocean-light)">worldsurfleague.com</a></p>`;
+  }
+}
+
+/* ==============================================================
+   CALENDÁRIO ICS
+   ============================================================== */
+const icsData = (dt, somaMin = 0) =>
+  new Date(new Date(dt).getTime() + somaMin * 60000)
+    .toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+
+function eventoICS_Copa(j) {
+  const start = j.data + "T" + j.horario + ":00-03:00";
+  return ["BEGIN:VEVENT","UID:borabrasil-copa-"+j.id+"@copa2026",
+    "DTSTAMP:"+icsData(start),"DTSTART:"+icsData(start),
+    "DTEND:"+icsData(start, CONFIG.DURACAO_JOGO_MIN),
+    "SUMMARY:⚽ "+j.selecao1+" x "+j.selecao2+" — Copa 2026","LOCATION:"+j.cidade,
+    "DESCRIPTION:CazéTV (YouTube)"+(j.ehBrasil?" e TV Globo":"")+". Bora Brasil!",
+    "BEGIN:VALARM","TRIGGER:-PT"+CONFIG.ALARME_ICS_MIN+"M","ACTION:DISPLAY",
+    "DESCRIPTION:Em "+CONFIG.ALARME_ICS_MIN+"min: "+j.selecao1+" x "+j.selecao2,
+    "END:VALARM","END:VEVENT"].join("\r\n");
+}
+
+function eventoICS_WSL(stop) {
+  const start = stop.inicio + "T08:00:00-03:00";
+  return ["BEGIN:VEVENT","UID:borabrasil-wsl-"+stop.stop+"@wsl2026",
+    "DTSTAMP:"+icsData(start),"DTSTART;VALUE=DATE:"+stop.inicio.replace(/-/g,""),
+    "DTEND;VALUE=DATE:"+stop.fim.replace(/-/g,""),
+    "SUMMARY:🏄 WSL CT "+stop.stop+" — "+stop.nome,"LOCATION:"+stop.local,
+    "DESCRIPTION:Assista em worldsurfleague.com, Globo Play ou app WSL. Bora Brasil!",
+    "BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY",
+    "DESCRIPTION:Amanhã começa: "+stop.nome,"END:VALARM","END:VEVENT"].join("\r\n");
+}
+
+function baixarICS(eventos, nome) {
+  const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Bora Brasil!//PT-BR","CALSCALE:GREGORIAN",
+    eventos.join("\r\n"),"END:VCALENDAR"].join("\r\n");
+  const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+  const a = Object.assign(document.createElement("a"), { href: url, download: nome });
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  toast("📅 Agenda gerada! Importe o arquivo no seu calendário.");
+}
+
+/* ==============================================================
+   NOTIFICAÇÕES
+   ============================================================== */
+async function ativarNotificacoes() {
+  if (!("Notification" in window)) { toast("Navegador sem suporte — use o 📅 calendário."); return; }
+  const perm = await Notification.requestPermission();
+  if (perm !== "granted") { toast("Permissão negada. O 📅 calendário continua funcionando!"); return; }
+  const agora = Date.now();
+  const futuros = JOGOS.filter(j => j.data === hojeISO() && dataDoJogo(j).getTime() > agora);
+  futuros.forEach(j => {
+    const dispara = dataDoJogo(j).getTime() - CONFIG.ALARME_NOTIF_MIN * 60000 - agora;
+    setTimeout(() => new Notification("⚽ "+j.selecao1+" x "+j.selecao2+" — vai começar!", {
+      body: "Às "+j.horario+" (Brasília) · CazéTV · Bora Brasil!", tag: "jogo-"+j.id
+    }), Math.max(dispara, 0));
+  });
+  toast(futuros.length ? "🔔 "+futuros.length+" alerta(s) agendado(s) para hoje." : "Os jogos de hoje já começaram — salve os próximos no 📅.");
+}
+
+/* ==============================================================
+   PLAYER YOUTUBE
+   ============================================================== */
+const players = {};
+let apiPronta = false, fila = [];
+function carregarApiYT() {
+  if (document.getElementById("yt-api")) return;
+  const s = document.createElement("script");
+  s.id = "yt-api"; s.src = "https://www.youtube.com/iframe_api";
+  s.onerror = () => { fila.forEach(id => fallbackEmbed(id)); fila = []; };
+  document.head.appendChild(s);
+}
+window.onYouTubeIframeAPIReady = () => { apiPronta = true; fila.forEach(criarPlayer); fila = []; };
+function criarPlayer(id) {
+  if (players[id]) return;
+  const j = JOGOS.find(x => x.id === id);
+  players[id] = new YT.Player("yt-"+id, {
+    videoId: j.id_video_youtube,
+    playerVars: { autoplay:1, rel:0, playsinline:1, hl:"pt" },
+    events: { onError: e => { if ([100,101,150].includes(e.data)) fallbackEmbed(id); } }
+  });
+}
+function fallbackEmbed(id) {
+  const j = JOGOS.find(x => x.id === id);
+  destruirPlayer(id);
+  painel(id, `<h3>Incorporação não disponível</h3><p>Assista gratuitamente no YouTube:</p><a class="btn btn-assistir" href="https://www.youtube.com/watch?v=${j.id_video_youtube}" target="_blank" rel="noopener noreferrer">▶ Abrir no YouTube</a>`);
+}
+function fallbackSemID(id) {
+  painel(id, `<h3>A live ainda não está no ar</h3><p>O link é publicado próximo ao jogo. Acesse o canal oficial ou insira o ID:</p><span class="grupo-botoes" style="justify-content:center"><a class="btn btn-assistir" href="${CONFIG.CANAL_CAZE}" target="_blank" rel="noopener noreferrer">▶ Canal CazéTV</a><button class="btn btn-link" data-acao="inserir-id" data-id="${id}">✎ Inserir ID</button></span>`);
+}
+function painel(id, html) { const fb = document.getElementById("fb-"+id); fb.innerHTML = html; fb.classList.add("visivel"); }
+function ocultarPainel(id) { const fb = document.getElementById("fb-"+id); fb.classList.remove("visivel"); fb.innerHTML=""; }
+function destruirPlayer(id) {
+  if (!players[id]) return;
+  try { players[id].destroy(); } catch(_) {}
+  delete players[id];
+  const m = document.querySelector("#jogo-"+id+" .moldura");
+  const a = document.createElement("div"); a.className="yt-alvo"; a.id="yt-"+id; m.prepend(a);
+}
+function abrirPlayer(id) {
+  document.querySelectorAll(".jogo.aberto").forEach(c => fecharPlayer(Number(c.id.replace("jogo-",""))));
+  const card = document.getElementById("jogo-"+id);
+  card.classList.add("aberto"); card.scrollIntoView({ behavior:"smooth", block:"center" });
+  const j = JOGOS.find(x => x.id === id);
+  if (!j.id_video_youtube) { fallbackSemID(id); return; }
+  if (apiPronta) criarPlayer(id); else { fila.push(id); carregarApiYT(); }
+}
+function fecharPlayer(id) { document.getElementById("jogo-"+id).classList.remove("aberto"); ocultarPainel(id); destruirPlayer(id); }
+function inserirID(id) {
+  const v = prompt("Cole o ID da live da CazéTV (após watch?v=):"); if (!v) return;
+  const j = JOGOS.find(x => x.id === id); j.id_video_youtube = v.trim().split(/[?&\/]/)[0];
+  ocultarPainel(id);
+  if (apiPronta) criarPlayer(id); else { fila.push(id); carregarApiYT(); }
+}
+
+/* ==============================================================
+   TOAST, MODAL, EVENTOS
+   ============================================================== */
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("visivel");
+  clearTimeout(t._x); t._x = setTimeout(() => t.classList.remove("visivel"), 4200);
+}
+
+const modal = document.getElementById("modalSobre");
+function abrirSobre() { modal.classList.add("aberto"); }
+function fecharSobre() { modal.classList.remove("aberto"); }
+modal.addEventListener("click", ev => { if (ev.target === modal) fecharSobre(); });
+
+const modalHist = document.getElementById("modalHistorico");
+if (modalHist) modalHist.addEventListener("click", ev => { if (ev.target === modalHist) fecharHistorico(); });
+
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") { fecharSobre(); fecharHistorico(); } });
+
+document.getElementById("filtrosCopa").addEventListener("click", ev => {
+  const chip = ev.target.closest(".chip"); if (!chip || chip.classList.contains("chip-surf")) return;
+  document.querySelectorAll("#filtrosCopa .chip").forEach(c => c.classList.remove("ativo"));
+  chip.classList.add("ativo"); filtroAtivo = chip.dataset.filtro; renderizar();
+});
+
+document.getElementById("filtrosSurf").addEventListener("click", ev => {
+  const chip = ev.target.closest(".chip-surf"); if (!chip) return;
+  renderizarSurf(chip.dataset.filtroSurf);
+});
+
+document.getElementById("btnCalTudo").addEventListener("click", () => baixarICS(JOGOS.map(eventoICS_Copa), "bora-brasil-copa-2026.ics"));
+document.getElementById("btnNotif").addEventListener("click", ativarNotificacoes);
+document.getElementById("btnSobre").addEventListener("click", abrirSobre);
+document.getElementById("btnHistorico").addEventListener("click", abrirHistorico);
+
+document.getElementById("btnCalSurf").addEventListener("click", () => {
+  const wslEvents = WSL_CT_2026.map(eventoICS_WSL);
+  baixarICS(wslEvents, "bora-brasil-wsl-2026.ics");
+});
+document.getElementById("btnSobreSurf").addEventListener("click", abrirSobre);
+
+document.body.addEventListener("click", ev => {
+  const alvo = ev.target.closest("[data-acao]"); if (!alvo) return;
+  const id = Number(alvo.dataset.id);
+  const acoes = {
+    "player":              () => abrirPlayer(id),
+    "fechar":              () => fecharPlayer(id),
+    "inserir-id":          () => inserirID(id),
+    "abrir-sobre":         abrirSobre,
+    "fechar-sobre":        fecharSobre,
+    "abrir-historico":     abrirHistorico,
+    "fechar-historico":    fecharHistorico,
+    "fechar-guia":         dispensarGuia,
+    "abrir-guia-passos":   abrirGuiaPassos,
+    "fechar-guia-passos":  fecharGuiaPassos,
+    "concluir-guia":       dispensarGuia,
+    "ics-surf": () => { const s = WSL_CT_2026.find(x => x.brasil); baixarICS([eventoICS_WSL(s)], "wsl-saquarema-2026.ics"); },
+    "ics": () => { const j = JOGOS.find(x => x.id === id); baixarICS([eventoICS_Copa(j)], ("copa-"+j.selecao1+"-x-"+j.selecao2+".ics").toLowerCase().replace(/\s+/g,"-")); }
+  };
+  (acoes[alvo.dataset.acao] || (()=>{}))();
+});
+
+/* ==============================================================
+   GUIA DE INSTALAÇÃO
+   ============================================================== */
+const GUIA_CHAVE = "borabrasil_guia_visto_v2";
+function detectarAparelho() {
+  const ua = navigator.userAgent;
+  return {
+    ehIOS: /iPhone|iPad|iPod/i.test(ua), ehAndroid: /Android/i.test(ua),
+    ehXiaomi: /XiaoMi|MIUI|POCO|Redmi|HyperOS/i.test(ua),
+    ehWebView: /; wv\)/i.test(ua),
+    jaInstalado: matchMedia("(display-mode: standalone)").matches || navigator.standalone === true
+  };
+}
+function montarPassos(ap) {
+  if (ap.ehIOS) return { titulo:"No seu iPhone é assim:", passos:[`Toque em <span class="passo">Compartilhar ⎙</span> (na barra do Safari).`,`Toque em <span class="passo">"Adicionar à Tela de Início"</span>.`,`Confirme tocando em <span class="passo">Adicionar</span>. Pronto! 🏄⚽`], nota:null };
+  if (ap.ehXiaomi) return { titulo:"No seu Xiaomi/Poco é assim:", passos:[`Vá em <span class="passo">Configurações → Apps → Chrome → Outras permissões</span>.`,`Ative <span class="passo">Atalhos na tela inicial</span>.`,`Volte ao app e toque em <span class="passo">⋮ → Adicionar à tela inicial</span>.`], nota:`<b>Por quê?</b> Xiaomi bloqueia atalhos por padrão. Passos 1 e 2: feitos uma vez só.` };
+  return { titulo:"No seu Android é assim:", passos:[`Toque no <span class="passo">⋮</span> (menu do Chrome).`,`Toque em <span class="passo">"Adicionar à tela inicial"</span>.`,`Confirme. Pronto! 🏄⚽`], nota:null };
+}
+
+/* ==============================================================
+   MÓDULO · SINCRONIZAÇÃO COM GOOGLE SHEETS
+   Lê automaticamente a planilha e sincroniza placares
+   ============================================================== */
+const resultadosGoogle = {};
+let ultimaSincronizacao = null;
+
+async function sincronizarPlanilha() {
+  if (!MARCA.idPlanilhaGoogle) return;
+  try {
+    console.log("[Sincronização] Iniciando sincronização...");
+    
+    // Tentar 3 proxies em ordem de preferência
+    const proxies = [
+      url => `https://cors-anywhere.herokuapp.com/${url}`,
+      url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+      url => url
+    ];
+    
+    const sheetUrl = `https://docs.google.com/spreadsheets/d/${MARCA.idPlanilhaGoogle}/export?format=csv&gid=0`;
+    
+    let csv = null;
+    let erroFinal = null;
+    
+    for (let i = 0; i < proxies.length; i++) {
+      try {
+        console.log(`[Sincronização] Tentando proxy ${i + 1}/3...`);
+        
+        const url = proxies[i](sheetUrl);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        csv = await response.text();
+        console.log(`[Sincronização] ✅ Proxy ${i + 1} funcionou!`);
+        break;
+        
+      } catch(err) {
+        erroFinal = err;
+        console.warn(`[Sincronização] ⚠️ Proxy ${i + 1} falhou:`, err.message);
+      }
+    }
+    
+    if (!csv) throw new Error(`Todos os proxies falharam. Último erro: ${erroFinal.message}`);
+    
+    const linhas = csv.split("\n").slice(1).filter(l => l.trim());
+    console.log(`[Sincronização] Encontradas ${linhas.length} linhas na planilha`);
+    
+    let sincronizados = 0;
+    
+    linhas.forEach((linha, idx) => {
+      try {
+        const campos = linha.split(",").map(c => c.trim().replace(/^"|"$/g, ""));
+        
+        if (campos.length < 7) {
+          console.warn(`[Sincronização] Linha ${idx+2}: Colunas insuficientes (${campos.length})`);
+          return;
+        }
+        
+        const data = campos[0].trim();
+        const sel1 = campos[2].trim();
+        const sel2 = campos[3].trim();
+        const gols1 = campos[4].trim();
+        const gols2 = campos[5].trim();
+        const status = campos[6].trim();
+        
+        const jogo = JOGOS.find(j => 
+          j.data === data && 
+          j.selecao1 === sel1 && 
+          j.selecao2 === sel2
+        );
+        
+        if (!jogo) {
+          console.warn(`[Sincronização] Linha ${idx+2}: Jogo não encontrado: "${sel1}" vs "${sel2}" em ${data}`);
+          return;
+        }
+        
+        if (status.toLowerCase() === "finalizado") {
+          resultadosGoogle[jogo.id] = {
+            gols1: parseInt(gols1) || 0,
+            gols2: parseInt(gols2) || 0,
+            status: "Finalizado",
+            vencedor: parseInt(gols1) > parseInt(gols2) ? "sel1" : parseInt(gols1) < parseInt(gols2) ? "sel2" : "empate"
+          };
+          console.log(`[Sincronização] ✅ ${sel1} ${gols1} x ${gols2} ${sel2}`);
+          sincronizados++;
+        }
+        
+      } catch(err) {
+        console.error(`[Sincronização] Erro na linha ${idx+2}:`, err.message);
+      }
+    });
+    
+    console.log(`[Sincronização] Total sincronizado: ${sincronizados} jogos`);
+    ultimaSincronizacao = new Date();
+    
+  } catch(err) { 
+    console.error("❌ Erro sincronizando planilha:", err.message);
+  }
+}
+
+setInterval(sincronizarPlanilha, 30000);
+sincronizarPlanilha();
+
+function abrirHistorico() {
+  const modal = document.getElementById("modalHistorico");
+  if (modal) modal.classList.add("aberto");
+  const conteudo = document.getElementById("conteudoHistorico");
+  if (!conteudo) return;
+  
+  const finalizados = Object.entries(resultadosGoogle).map(([id, res]) => ({
+    jogo: JOGOS.find(j => j.id === parseInt(id)),
+    resultado: res
+  })).filter(item => item.jogo);
+  
+  if (!finalizados.length) {
+    conteudo.innerHTML = `<p style="text-align:center;color:#8BA898;padding:20px;">Sem resultados ainda. Jogos da Copa começam em breve! ⚽</p>`;
+  } else {
+    conteudo.innerHTML = finalizados
+      .sort((a, b) => new Date(a.jogo.data) - new Date(b.jogo.data))
+      .map(item => {
+        const { jogo, resultado } = item;
+        const vencedorSel1 = resultado.vencedor === "sel1";
+        const vencedorSel2 = resultado.vencedor === "sel2";
+        const ehEmpate = resultado.vencedor === "empate";
+        return `<div style="border:1px solid #163420;border-radius:12px;padding:14px;margin:10px 0;background:#0D2716">
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center">
+            <div><span style="font-size:.7rem;color:#8BA898">${jogo.data}</span><br><span style="font-size:.9rem">${jogo.bandeira1} ${jogo.selecao1}</span></div>
+            <div><span style="font-family:'Bebas Neue';font-size:1.8rem;color:${vencedorSel1 ? '#00E676' : '#8BA898'}">${resultado.gols1}</span>
+            <span style="color:#8BA898">×</span>
+            <span style="font-family:'Bebas Neue';font-size:1.8rem;color:${vencedorSel2 ? '#00E676' : '#8BA898'}">${resultado.gols2}</span></div>
+            <div><span style="font-size:.7rem;color:#8BA898">${jogo.horario}</span><br><span style="font-size:.9rem">${jogo.selecao2} ${jogo.bandeira2}</span></div>
+          </div>
+          <div style="font-size:.7rem;color:#8BA898;margin-top:8px;padding-top:8px;border-top:1px dashed #163420;text-align:center">
+            ${ehEmpate ? "⚖️ Empate" : (vencedorSel1 ? `🏆 ${jogo.selecao1}` : `🏆 ${jogo.selecao2}`)} · ${jogo.cidade}
+          </div>
+        </div>`;
+      }).join("");
+  }
+  
+  const ult = document.getElementById("ultimaAtualizacao");
+  if (ult && ultimaSincronizacao) {
+    const h = String(ultimaSincronizacao.getHours()).padStart(2, "0");
+    const m = String(ultimaSincronizacao.getMinutes()).padStart(2, "0");
+    ult.textContent = `Sincronizado às ${h}:${m}`;
+  }
+}
+
+function fecharHistorico() {
+  const modal = document.getElementById("modalHistorico");
+  if (modal) modal.classList.remove("aberto");
+}
+
+function guiaInstalacao() {
+  const ap = detectarAparelho();
+  if ((!ap.ehIOS && !ap.ehAndroid) || ap.jaInstalado) return;
+  let jaVisto = false; try { jaVisto = localStorage.getItem(GUIA_CHAVE) === "1"; } catch(_) {}
+  if (jaVisto) return;
+  const guia = document.createElement("div");
+  guia.className = "guia-instalar";
+  guia.setAttribute("role","note");
+  guia.innerHTML = `<span class="icone" aria-hidden="true">📲</span><span class="conteudo"><b>Deixa o app na sua tela</b><p>Copa + Surf — funciona como app nativo, sem abrir o navegador.</p><span class="acoes-guia"><button class="btn btn-assistir btn-mini" data-acao="abrir-guia-passos">Ver como fazer →</button></span></span><button class="fechar-guia" data-acao="fechar-guia" aria-label="Dispensar">✕</button>`;
+  document.body.appendChild(guia);
+  setTimeout(() => guia.classList.add("visivel"), 1800);
+}
+function abrirGuiaPassos() {
+  let m = document.getElementById("modalGuia");
+  if (!m) {
+    const ap = detectarAparelho(), g = montarPassos(ap);
+    const aviso = (ap.ehAndroid && ap.ehWebView) ? `<p class="nota-passos" style="margin-bottom:14px"><b>Antes:</b> você está dentro de outro app. Toque em <b>⋮ → Abrir no Chrome</b>.</p>` : "";
+    m = document.createElement("div"); m.className="modal-fundo"; m.id="modalGuia";
+    m.setAttribute("role","dialog"); m.setAttribute("aria-modal","true");
+    m.innerHTML = `<div class="modal"><button class="fechar-x" data-acao="fechar-guia-passos" aria-label="Fechar">✕</button><h2>📲 ${g.titulo}</h2>${aviso}<ol class="lista-passos">${g.passos.map((p,i)=>`<li><span class="num-passo">${i+1}</span><span class="txt">${p}</span></li>`).join("")}</ol>${g.nota?`<p class="nota-passos">${g.nota}</p>`:""}<div class="acoes-modal" style="margin-top:16px"><button class="btn btn-assistir" data-acao="concluir-guia">✅ Consegui!</button><button class="btn btn-link" data-acao="fechar-guia-passos">Ver depois</button></div></div>`;
+    m.addEventListener("click", ev => { if (ev.target === m) fecharGuiaPassos(); });
+    document.body.appendChild(m);
+  }
+  m.classList.add("aberto");
+}
+function fecharGuiaPassos() { const m = document.getElementById("modalGuia"); if (m) m.classList.remove("aberto"); }
+function dispensarGuia() {
+  try { localStorage.setItem(GUIA_CHAVE,"1"); } catch(_) {}
+  const g = document.querySelector(".guia-instalar"); if (g) g.remove();
+  const m = document.getElementById("modalGuia"); if (m) m.remove();
+}
+
+/* ==============================================================
+   APLICAR MARCA
+   ============================================================== */
+function aplicarMarca() {
+  document.getElementById("logoTopo").src = LOGO_B64;
+  document.getElementById("logoSobre").src = LOGO_B64;
+  document.getElementById("footerLogo").src = LOGO_B64;
+  document.getElementById("marcaTopo").textContent = MARCA.empresa;
+  document.getElementById("devNome").textContent = MARCA.responsavel;
+  document.getElementById("devBio").textContent = MARCA.slogan + " · " + MARCA.credencial + ".";
+  document.getElementById("creditoRodape").textContent = MARCA.empresa;
+  document.getElementById("footerBrandLink").href = zap(MARCA.msgContato);
+  document.getElementById("zapSobre").href = zap(MARCA.msgContato);
+  document.getElementById("zapAnunciar").href = zap(MARCA.msgAnuncio);
+  document.getElementById("zapFlutuante").href = zap(MARCA.msgContato);
+}
+
+/* ==============================================================
+   INIT
+   ============================================================== */
+if (!JOGOS.some(j => j.data === hojeISO())) {
+  filtroAtivo = "todos";
+  document.querySelectorAll("#filtrosCopa .chip").forEach(c => c.classList.toggle("ativo", c.dataset.filtro === "todos"));
+}
+aplicarMarca();
+montarBanner(BANNER_SLIDES_COPA, "bannerCopa");
+montarBanner(BANNER_SLIDES_SURF, "bannerSurf");
+renderizar();
+guiaInstalacao();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(r => console.log('✅ SW registrado:', r.scope))
+      .catch(e => console.warn('SW erro:', e));
+  });
+}
+</script>
+</body>
+</html>
